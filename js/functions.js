@@ -7,6 +7,7 @@ welcomebutton.click(function(){
 );
 
 
+<<<<<<< HEAD
 document.getElementById('welcome_button').addEventListener('click', function () {
 
   var state = {
@@ -75,3 +76,15 @@ document.getElementById('welcome_button').addEventListener('click', function () 
 
 
 });
+=======
+// Plot Nearest Station using leafletKnn
+var plotNearest = function(feature){
+  nearest = leafletKnn(feature).nearest(L.latLng($('#lat').val(),$('#lon').val()), 1);
+  nearestmarkers = [];
+  _.each(nearest,function(obj){
+    nearestmarkers.push(L.marker([obj.lat,obj.lon],{icon: myIcon}));
+  });
+  addNear=_.each(nearestmarkers,function(markers){markers.addTo(map);});
+  return addNear;
+};
+>>>>>>> 86762aba19611da5a2ad0fe82ebefc36f470a6a0
