@@ -9,7 +9,7 @@ var map = new mapboxgl.Map({
     bearing: 9.5,
     hash: true,
 });
-var layerList = document.getElementById('menu');
+/*var layerList = document.getElementById('menu');
 var inputs = layerList.getElementsByTagName('input');
 
 function switchLayer(layer) {
@@ -26,3 +26,4 @@ function switchLayer(layer) {
 for (var i = 0; i < inputs.length; i++) {
     inputs[i].onclick = switchLayer;
 }
+*/
