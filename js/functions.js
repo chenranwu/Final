@@ -6,6 +6,7 @@ welcomebutton.click(function(){
 }
 );
 
+<<<<<<< HEAD
 
 document.getElementById('welcome_button').addEventListener('click', function () {
 
@@ -86,3 +87,13 @@ var plotNearest = function(feature){
   addNear=_.each(nearestmarkers,function(markers){markers.addTo(map);});
   return addNear;
 };
+=======
+var targetPoint = turf.point([28.965797, 41.010086], {"marker-color": "#0F0"});
+var points = turf.featureCollection([
+    turf.point([28.973865, 41.011122]),
+    turf.point([28.948459, 41.024204]),
+    turf.point([28.938674, 41.013324])
+]);
+
+var nearest = turf.nearestPoint(targetPoint, points);
+>>>>>>> f1e0b5efdff6584227ae2a1dfa54b7f1a2bf4d49
