@@ -20,19 +20,19 @@ map.on('load', function() {
      'source-layer': 'building',
      'filter': ['==', 'extrude', 'true'],
      'type': 'fill-extrusion',
-     'minzoom': 12,
+     'minzoom': 5,
      'paint': {
          'fill-extrusion-color': '#aaa',
 
          'fill-extrusion-height': [
              "interpolate", ["linear"], ["zoom"],
-             12, 0,
-             12.05, ["get", "height"]
+             5, 0,
+             5.05, ["get", "height"]
          ],
          'fill-extrusion-base': [
              "interpolate", ["linear"], ["zoom"],
-             12, 0,
-             12.05, ["get", "min_height"]
+             5, 0,
+             5.05, ["get", "min_height"]
          ],
          'fill-extrusion-opacity': .6
      }
