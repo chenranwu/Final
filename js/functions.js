@@ -7,7 +7,6 @@ welcomebutton.click(function(){
 );
 
 
-<<<<<<< HEAD
 document.getElementById('welcome_button').addEventListener('click', function () {
 
   var state = {
@@ -44,9 +43,9 @@ document.getElementById('welcome_button').addEventListener('click', function () 
         ]
       };
 
-     map.loadImage('', function(error, image) {
+     map.loadImage('https://raw.githubusercontent.com/chenranwu/Final/master/img/people.png', function(error, image) {
      if (error) throw error;
-     map.addImage('cat', image);
+     map.addImage('people', image);
      map.addLayer({
        "id": "points",
        "type": "symbol",
@@ -61,7 +60,7 @@ document.getElementById('welcome_button').addEventListener('click', function () 
            }
        },
        "layout": {
-           "icon-image": "cat",
+           "icon-image": "people",
            "icon-size": 0.25
        }
    });
@@ -76,7 +75,7 @@ document.getElementById('welcome_button').addEventListener('click', function () 
 
 
 });
-=======
+
 // Plot Nearest Station using leafletKnn
 var plotNearest = function(feature){
   nearest = leafletKnn(feature).nearest(L.latLng($('#lat').val(),$('#lon').val()), 1);
@@ -87,4 +86,3 @@ var plotNearest = function(feature){
   addNear=_.each(nearestmarkers,function(markers){markers.addTo(map);});
   return addNear;
 };
->>>>>>> 86762aba19611da5a2ad0fe82ebefc36f470a6a0
