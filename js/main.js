@@ -47,9 +47,12 @@ map.on('load', function() {
         "id": "test",
         "type": "symbol",
         "source": "rideindego",
+        "paint": {
+          "icon-opacity":0.8
+        },
         "layout": {
             "icon-image": "bike",
-            "icon-size": 0.03
+            "icon-size": 0.05
         }
     });
 });

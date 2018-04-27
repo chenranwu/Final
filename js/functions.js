@@ -59,6 +59,9 @@ document.getElementById('welcome_button').addEventListener('click', function () 
                }]
            }
        },
+       "paint": {
+         
+       },
        "layout": {
            "icon-image": "people",
            "icon-size": 0.25
