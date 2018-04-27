@@ -40,6 +40,9 @@ map.on('load', function() {
 
     map.addSource('rideindego', { type: 'geojson', data: url });
     map.getSource('rideindego').setData(url);
+    map.loadImage('https://financialtribune.com/sites/default/files/field/image/october/12_bike.png', function(error, image) {
+    if (error) throw error;
+    map.addImage('bike', image);
     map.addLayer({
         "id": "test",
         "type": "circle",
