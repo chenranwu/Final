@@ -52,7 +52,7 @@ map.on('load', function() {
         },
         "layout": {
             "icon-image": "bike",
-            "icon-size": 0.05
+            "icon-size": 0.04
         }
     });
 });

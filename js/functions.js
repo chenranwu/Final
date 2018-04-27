@@ -1,5 +1,6 @@
 
 var welcomebutton = $("#welcome_button");
+var originlocation = {"lat":0,"lng":0};
 
 welcomebutton.click(function(){
   $('#welcome_page').hide();
@@ -16,7 +17,7 @@ document.getElementById('welcome_button').addEventListener('click', function () 
     }
   };
 
-  var originlocation = {"lat":0,"lng":0};
+
 
    var updatePosition = function(lat, lng, updated) {
      state.position.updated = updated;
@@ -59,14 +60,12 @@ document.getElementById('welcome_button').addEventListener('click', function () 
                }]
            }
        },
-       "paint": {
-         
-       },
        "layout": {
            "icon-image": "people",
-           "icon-size": 0.25
+           "icon-size": 0.20
        }
    });
+   plotNearest();
 });
 
 
@@ -81,6 +80,7 @@ document.getElementById('welcome_button').addEventListener('click', function () 
 
 // Plot Nearest Station using leafletKnn
 var plotNearest = function(feature){
+  console.log(targetPoint);
   nearest = leafletKnn(feature).nearest(L.latLng($('#lat').val(),$('#lon').val()), 1);
   nearestmarkers = [];
   _.each(nearest,function(obj){
@@ -90,7 +90,7 @@ var plotNearest = function(feature){
   return addNear;
 };
 
-var targetPoint = turf.point([28.965797, 41.010086], {"marker-color": "#0F0"});
+var targetPoint = turf.point([originlocation.lng, originlocation.lat]);
 var points = turf.featureCollection([
     turf.point([28.973865, 41.011122]),
     turf.point([28.948459, 41.024204]),
