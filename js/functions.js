@@ -1,14 +1,30 @@
 
 var welcomebutton = $("#welcome_button");
-var originlocation = {"lat":0,"lng":0};
+var originlocation = { lat: 0, lng: 0 };
+var framesPerSecond = 20;
+var initialOpacity = 0.5;
+var opacity = initialOpacity;
+var initialRadius = 3;
+var radius = initialRadius;
+var maxRadius = 1000;
 
-welcomebutton.click(function(){
+function openNav() {
+    document.getElementById("mySidenav").style.width = "225px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+
+welcomebutton.click(function () {
   $('#welcome_page').hide();
 }
 );
 
 
 document.getElementById('welcome_button').addEventListener('click', function () {
+
 
   var state = {
     position: {
@@ -17,84 +33,117 @@ document.getElementById('welcome_button').addEventListener('click', function () 
     }
   };
 
+  var updatePosition = function (lat, lng, updated) {
+    state.position.updated = updated;
+  };
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      updatePosition(position.coords.latitude, position.coords.longitude, position.timestamp);
+      originlocation.lat = position.coords.latitude;
+      originlocation.lng = position.coords.longitude;
+
+      map.flyTo({
+        center: [
+          originlocation.lng,
+          originlocation.lat],
+        zoom: 17
+      });
+
+      map.loadImage('https://raw.githubusercontent.com/chenranwu/Final/master/img/people.png', function (error, image) {
+        if (error) throw error;
+        map.addImage('people', image);
+
+        map.addLayer({
+          id: 'points',
+          type: 'symbol',
+          source: {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: [{
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [
+                    originlocation.lng,
+                    originlocation.lat,
+                  ]
+                }
+              }]
+            }
+          },
+          layout: {
+            'icon-image': 'people',
+            'icon-size': 0.20
+          }
+        });
+
+        map.addSource('point', {
+                "type": "geojson",
+                "data": {
+                    "type": "Point",
+                    "coordinates": [
+                      originlocation.lng,
+                      originlocation.lat,
+                    ]
+                }
+            });
+
+            map.addLayer({
+                "id": "point",
+                "source": "point",
+                "type": "circle",
+                "paint": {
+                    "circle-radius": initialRadius,
+                    "circle-radius-transition": {duration: 0},
+                    "circle-opacity-transition": {duration: 0},
+                    "circle-color": "#373635",
+                    "circle-stroke-color": "#729cc2",
+                    "circle-stroke-width": 3
+                }
+            });
+
+            map.addLayer({
+                "id": "point1",
+                "source": "point",
+                "type": "circle",
+                "paint": {
+                    "circle-radius": initialRadius,
+                    "circle-color": "#729cc2",
+                    "circle-stroke-color": "#729cc2"
+                }
+            });
 
 
-   var updatePosition = function(lat, lng, updated) {
-     state.position.updated = updated;
-   };
+            function animateMarker(timestamp) {
+                setTimeout(function(){
+                    requestAnimationFrame(animateMarker);
 
-   if ("geolocation" in navigator) {
-     navigator.geolocation.getCurrentPosition(function(position) {
-       updatePosition(position.coords.latitude, position.coords.longitude, position.timestamp);
-       originlocation.lat = position.coords.latitude;
-       originlocation.lng = position.coords.longitude;
-       console.log(originlocation);
-       map.flyTo({
-           center: [
-               originlocation.lng,
-               originlocation.lat],
-           zoom: 17
-       });
+                    radius += (maxRadius - radius) / framesPerSecond;
+                    opacity -= ( .9 / framesPerSecond );
 
-       var currentlocation = {
-         "type": "Point",
-         "coordinates": [
-            originlocation.lng,
-            originlocation.lat,
-        ]
-      };
+                    if (opacity <= 0) {
+                        radius = initialRadius;
+                        opacity = initialOpacity;
+                    }
 
-     map.loadImage('https://raw.githubusercontent.com/chenranwu/Final/master/img/people.png', function(error, image) {
-     if (error) throw error;
-     map.addImage('people', image);
-     map.addLayer({
-       "id": "points",
-       "type": "symbol",
-       "source": {
-           "type": "geojson",
-           "data": {
-               "type": "FeatureCollection",
-               "features": [{
-                   "type": "Feature",
-                   "geometry": currentlocation
-               }]
-           }
-       },
-       "layout": {
-           "icon-image": "people",
-           "icon-size": 0.20
-       }
-   });
-   plotNearest();
+                    map.setPaintProperty('point', 'circle-radius', radius);
+                    map.setPaintProperty('point', 'circle-opacity', opacity);
+
+
+
+                }, 3000 / framesPerSecond);
+
+            }
+
+            // Start the animation.
+            animateMarker(0);
+
+      });
+    });
+  }
+  else {
+    alert("Unable to access geolocation API!");
+  }
 });
-
-
-     });
-   }
-   else {
-     alert("Unable to access geolocation API!");
-   }
-
-
-});
-
-// Plot Nearest Station using leafletKnn
-var plotNearest = function(feature){
-  console.log(targetPoint);
-  nearest = leafletKnn(feature).nearest(L.latLng($('#lat').val(),$('#lon').val()), 1);
-  nearestmarkers = [];
-  _.each(nearest,function(obj){
-    nearestmarkers.push(L.marker([obj.lat,obj.lon],{icon: myIcon}));
-  });
-  addNear=_.each(nearestmarkers,function(markers){markers.addTo(map);});
-  return addNear;
-};
-
-var targetPoint = turf.point([originlocation.lng, originlocation.lat]);
-var points = turf.featureCollection([
-    turf.point([28.973865, 41.011122]),
-    turf.point([28.948459, 41.024204]),
-    turf.point([28.938674, 41.013324])
-]);
-
-var nearest = turf.nearestPoint(targetPoint, points);

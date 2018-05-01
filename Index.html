@@ -12,6 +12,7 @@
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+    <link href="css/w3.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
     <link href="css/grayscale.min.css" rel="stylesheet">
     <link href="css/others.css" rel="stylesheet">
@@ -56,23 +57,23 @@
   </div>
 </header>
 
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div class="list-group">
+  <a href="#">Step One: Find Your Location</a>
+  <a href="#">Step Two: Choose a Station</a>
+  <a href="#">Step Three: Choose Your Destination</a>
+  <a href="#">Find Your Way!</a>
+  </div>
+</div>
+
+<div id="nav">
+<span style="font-size:30px;cursor:pointer;opacity:0.8;" onclick="openNav()">&#9776;</span>
+</div>
+
+
+
 <div id='map'></div>
-<!-- <div id='menu'>
-    <div><input id='basic' type='radio' name='rtoggle' value='basic' >
-    <label for='basic'>basic</label><div>
-    <div><input id='streets' type='radio' name='rtoggle' value='streets'>
-    <label for='streets'>streets</label><div>
-    <div><input id='bright' type='radio' name='rtoggle' value='bright'>
-    <label for='bright'>bright</label><div>
-    <div><input id='light' type='radio' name='rtoggle' value='light'>
-    <label for='light'>light</label><div>
-    <div><input id='dark' type='radio' name='rtoggle' value='dark' checked='checked'>
-    <label for='dark'>dark</label><div>
-    <div><input id='satellite' type='radio' name='rtoggle' value='satellite'>
-    <label for='satellite'>satellite</label><div>
-    <div><input id='customized' type='radio' name='rtoggle' value='customized'>
-    <label for='customized'>customized</label><div>
-</div> -->
 
 <!-- Javascript Imports -->
 <script src="vendor/jquery/jquery.min.js"></script>
