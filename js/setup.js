@@ -9,21 +9,9 @@ var map = new mapboxgl.Map({
     bearing: 9.5,
     hash: true,
 });
-/*var layerList = document.getElementById('menu');
-var inputs = layerList.getElementsByTagName('input');
 
-function switchLayer(layer) {
-    var layerId = layer.target.id;
-    if(layerId == 'customized'){
-       map.setStyle('http://osm-liberty.lukasmartinelli.ch/style.json');
-    }
-    else{
-       map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
-    }
+var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+});
 
-}
-
-for (var i = 0; i < inputs.length; i++) {
-    inputs[i].onclick = switchLayer;
-}
-*/
+map.addControl(geocoder);

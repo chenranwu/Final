@@ -1,7 +1,7 @@
 
 //load data
 var url = 'https://www.rideindego.com/stations/json/';
-
+var popup;
 map.on('load', function() {
   // Insert the layer beneath any symbol layer.
  var layers = map.getStyle().layers;
@@ -40,19 +40,22 @@ map.on('load', function() {
 
     map.addSource('rideindego', { type: 'geojson', data: url });
     map.getSource('rideindego').setData(url);
+    map.loadImage('https://raw.githubusercontent.com/chenranwu/Final/master/img/bike.png', function(error, image) {
+    if (error) throw error;
+    map.addImage('bike', image);
     map.addLayer({
         "id": "test",
-        "type": "circle",
+        "type": "symbol",
         "source": "rideindego",
-        "paint":{
-          "circle-color": "#40BFBF",
-          "circle-opacity": 0.4,
-          "circle-radius":10,
+        "paint": {
+          "icon-opacity":0.8
         },
         "layout": {
+            "icon-image": "bike",
+            "icon-size": 0.04
         }
     });
-
+});
     map.on('click', function(e) {
         var features = map.queryRenderedFeatures(e.point, {
            layers: ['test']
@@ -63,17 +66,193 @@ map.on('load', function() {
       }
       var feature = features[0];
       console.log(feature);
-      var popup = new mapboxgl.Popup({ offset: [0, -15] })
+      popup = new mapboxgl.Popup({ offset: [0, -15] })
       .setLngLat(feature.geometry.coordinates)
       .setHTML('<h3>' + feature.properties.name + '</h3><p>' +
-      feature.properties.addressStreet + '</p><h4><strong>' +
+      feature.properties.addressStreet + '</p><p>'+ feature.properties.openTime +  "~" + feature.properties.closeTime + '</p><h4><strong>' +
        feature.properties.bikesAvailable + '</strong> Bikes</h4><h4><strong>' +
-       feature.properties.docksAvailable + '</strong> Docks </h4>'
+       feature.properties.docksAvailable + '</strong> Docks </h4>' + '<button class="w3-button w3-blue" id="choose" style="margin-left:10px;">Choose This Station</button>'
 )
       .setLngLat(feature.geometry.coordinates)
       .addTo(map);
+      Demo2.className += " w3-show";
+      Demo2.previousElementSibling.className =
+      Demo2.previousElementSibling.className.replace("w3-black", "w3-blue");
+
+      $("#choose").click(function(e) {
+        var rounturl;
+        var destination;
+            rounturl = 'https://api.mapbox.com/directions/v5/mapbox/walking/' + originlocation.lng+ ',' + originlocation.lat + ';' + feature.properties.longitude + ',' + feature.properties.latitude + '?access_token=pk.eyJ1Ijoid2NoZW5yYW4iLCJhIjoiY2pmNGNpc2I4MTBzdDJ3bXFpY29ya216cyJ9.MYjrBjhUl9-lj2WU7Ekdww';
+            console.log(rounturl);
+            $.getJSON(rounturl,function(){console.log("success");}).done(function(rount){
+              console.log(rount);
+              onerount = rount.routes[0].geometry;
+              console.log(onerount);
+              onerount = decode(onerount);
+              _.each(onerount,function(array){
+                var temp = 0;
+                temp = array[0];
+                array[0] = array[1];
+                array[1] = temp;
+              });
+              console.log(onerount);
+              if (map.getLayer( "firstroute")){
+	              map.removeLayer( "firstroute");
+                  }
+
+             if (map.getSource("firstroutesource")){
+               	map.removeSource("firstroutesource");
+                }
+              map.addSource('firstroutesource',{
+                   "type": "geojson",
+                   "data": {
+                   "type": "Feature",
+                   "properties": {},
+                   "geometry": {
+                         "type": "LineString",
+                         "coordinates": onerount
+                    }
+              }
+          });
+              map.addLayer({
+                  "id": "firstroute",
+                  "type": "line",
+                  "source": "firstroutesource",
+                 "layout": {
+                 "line-join": "round",
+                 "line-cap": "round"
+              },
+                 "paint": {
+                    "line-color": "#519AD6",
+                    "line-width": 3,
+                    "line-dasharray": [3,3]
+             }
+               });
+               Demo3.className += " w3-show";
+               Demo3.previousElementSibling.className =
+               Demo3.previousElementSibling.className.replace("w3-black", "w3-blue");
+               popup.remove();
+            });
+            if (map.getLayer( "destpoint")){
+              map.removeLayer( "destpoint");
+                }
+
+           if (map.getSource("singlepoint")){
+              map.removeSource("singlepoint");
+              }
+            map.addSource('singlepoint', {
+                 "type": "geojson",
+                 "data": {
+                 "type": "FeatureCollection",
+                 "features": []
+                          }
+               });
+
+           map.addLayer({
+                 "id": "destpoint",
+                 "source": "singlepoint",
+                 "type": "circle",
+                 "paint": {
+                 "circle-radius": 10,
+                 "circle-color": "#007cbf"
+                }
+               });
+
+             geocoder.on('result', function(ev) {
+             map.getSource('singlepoint').setData(ev.result.geometry);
+             destination=ev.result;
+             console.log(destination);
+             Demo4.className += " w3-show";
+             Demo4.previousElementSibling.className =
+             Demo4.previousElementSibling.className.replace("w3-black", "w3-blue");
+         });
+         $("#Go").click(function(e) {
+           var rounturl2;
+               rounturl2 = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + destination.center[0] + ',' + destination.center[1] + ';' + feature.properties.longitude + ',' + feature.properties.latitude + '?access_token=pk.eyJ1Ijoid2NoZW5yYW4iLCJhIjoiY2pmNGNpc2I4MTBzdDJ3bXFpY29ya216cyJ9.MYjrBjhUl9-lj2WU7Ekdww';
+               console.log(rounturl2);
+               $.getJSON(rounturl2,function(){console.log("success");}).done(function(rount){
+                 console.log(rount);
+                 tworount = rount.routes[0].geometry;
+                 console.log( tworount);
+                  tworount = decode( tworount);
+                 _.each( tworount,function(array){
+                   var temp = 0;
+                   temp = array[0];
+                   array[0] = array[1];
+                   array[1] = temp;
+                 });
+                 console.log(tworount);
+                 if (map.getLayer( "secondroute")){
+   	              map.removeLayer( "secondroute");
+                     }
+
+                if (map.getSource("secondroutesource")){
+                  	map.removeSource("secondroutesource");
+                   }
+                 map.addSource('secondroutesource',{
+                      "type": "geojson",
+                      "data": {
+                      "type": "Feature",
+                      "properties": {},
+                      "geometry": {
+                            "type": "LineString",
+                            "coordinates": tworount
+                       }
+                 }
+             });
+                 map.addLayer({
+                     "id": "secondroute",
+                     "type": "line",
+                     "source": "secondroutesource",
+                    "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                 },
+                    "paint": {
+                       "line-color": "#79ABB5",
+                       "line-width": 5,
+                }
+                  });
+               });
+         });
+         $("#Starover").click(function(e) {
+           if (map.getLayer( "secondroute")){
+            map.removeLayer( "secondroute");
+               }
+
+          if (map.getSource("secondroutesource")){
+              map.removeSource("secondroutesource");
+             }
+             if (map.getLayer( "destpoint")){
+               map.removeLayer( "destpoint");
+                 }
+
+            if (map.getSource("singlepoint")){
+               map.removeSource("singlepoint");
+               }
+               if (map.getLayer( "firstroute")){
+ 	              map.removeLayer( "firstroute");
+                   }
+
+              if (map.getSource("firstroutesource")){
+                	map.removeSource("firstroutesource");
+                 }
+
+              Demo4.className = Demo2.className.replace(" w3-show", "");
+              Demo4.previousElementSibling.className =
+              Demo4.previousElementSibling.className.replace("w3-blue", "w3-black");
+              Demo3.className = Demo3.className.replace(" w3-show", "");
+              Demo3.previousElementSibling.className =
+              Demo3.previousElementSibling.className.replace("w3-blue", "w3-black");
+              Demo2.className = Demo2.className.replace(" w3-show", "");
+              Demo2.previousElementSibling.className =
+              Demo2.previousElementSibling.className.replace("w3-blue", "w3-black");
+
+         });
+
+      });
+
     });
 });
-
 
 map.addControl(new mapboxgl.NavigationControl());
