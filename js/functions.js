@@ -30,9 +30,6 @@ function myFunction(id) {
 }
 
 
-$("#dest").val("Type in Your Destination");
-
-
 welcomebutton.click(function () {
   $('#welcome_page').hide();
 }

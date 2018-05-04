@@ -1,7 +1,7 @@
 
 //load data
 var url = 'https://www.rideindego.com/stations/json/';
-
+var popup;
 map.on('load', function() {
   // Insert the layer beneath any symbol layer.
  var layers = map.getStyle().layers;
@@ -66,7 +66,7 @@ map.on('load', function() {
       }
       var feature = features[0];
       console.log(feature);
-      var popup = new mapboxgl.Popup({ offset: [0, -15] })
+      popup = new mapboxgl.Popup({ offset: [0, -15] })
       .setLngLat(feature.geometry.coordinates)
       .setHTML('<h3>' + feature.properties.name + '</h3><p>' +
       feature.properties.addressStreet + '</p><p>'+ feature.properties.openTime +  "~" + feature.properties.closeTime + '</p><h4><strong>' +
@@ -96,20 +96,28 @@ map.on('load', function() {
                 array[1] = temp;
               });
               console.log(onerount);
+              if (map.getLayer( "firstroute")){
+	              map.removeLayer( "firstroute");
+                  }
+
+             if (map.getSource("firstroutesource")){
+               	map.removeSource("firstroutesource");
+                }
+              map.addSource('firstroutesource',{
+                   "type": "geojson",
+                   "data": {
+                   "type": "Feature",
+                   "properties": {},
+                   "geometry": {
+                         "type": "LineString",
+                         "coordinates": onerount
+                    }
+              }
+          });
               map.addLayer({
                   "id": "firstroute",
                   "type": "line",
-                  "source": {
-                       "type": "geojson",
-                       "data": {
-                       "type": "Feature",
-                       "properties": {},
-                       "geometry": {
-                             "type": "LineString",
-                             "coordinates": onerount
-                        }
-                  }
-              },
+                  "source": "firstroutesource",
                  "layout": {
                  "line-join": "round",
                  "line-cap": "round"
@@ -123,7 +131,15 @@ map.on('load', function() {
                Demo3.className += " w3-show";
                Demo3.previousElementSibling.className =
                Demo3.previousElementSibling.className.replace("w3-black", "w3-blue");
+               popup.remove();
             });
+            if (map.getLayer( "destpoint")){
+              map.removeLayer( "destpoint");
+                }
+
+           if (map.getSource("singlepoint")){
+              map.removeSource("singlepoint");
+              }
             map.addSource('singlepoint', {
                  "type": "geojson",
                  "data": {
@@ -156,30 +172,38 @@ map.on('load', function() {
                console.log(rounturl2);
                $.getJSON(rounturl2,function(){console.log("success");}).done(function(rount){
                  console.log(rount);
-                 onerount = rount.routes[0].geometry;
-                 console.log(onerount);
-                 onerount = decode(onerount);
-                 _.each(onerount,function(array){
+                 tworount = rount.routes[0].geometry;
+                 console.log( tworount);
+                  tworount = decode( tworount);
+                 _.each( tworount,function(array){
                    var temp = 0;
                    temp = array[0];
                    array[0] = array[1];
                    array[1] = temp;
                  });
-                 console.log(onerount);
+                 console.log(tworount);
+                 if (map.getLayer( "secondroute")){
+   	              map.removeLayer( "secondroute");
+                     }
+
+                if (map.getSource("secondroutesource")){
+                  	map.removeSource("secondroutesource");
+                   }
+                 map.addSource('secondroutesource',{
+                      "type": "geojson",
+                      "data": {
+                      "type": "Feature",
+                      "properties": {},
+                      "geometry": {
+                            "type": "LineString",
+                            "coordinates": tworount
+                       }
+                 }
+             });
                  map.addLayer({
                      "id": "secondroute",
                      "type": "line",
-                     "source": {
-                          "type": "geojson",
-                          "data": {
-                          "type": "Feature",
-                          "properties": {},
-                          "geometry": {
-                                "type": "LineString",
-                                "coordinates": onerount
-                           }
-                     }
-                 },
+                     "source": "secondroutesource",
                     "layout": {
                     "line-join": "round",
                     "line-cap": "round"
@@ -190,6 +214,40 @@ map.on('load', function() {
                 }
                   });
                });
+         });
+         $("#Starover").click(function(e) {
+           if (map.getLayer( "secondroute")){
+            map.removeLayer( "secondroute");
+               }
+
+          if (map.getSource("secondroutesource")){
+              map.removeSource("secondroutesource");
+             }
+             if (map.getLayer( "destpoint")){
+               map.removeLayer( "destpoint");
+                 }
+
+            if (map.getSource("singlepoint")){
+               map.removeSource("singlepoint");
+               }
+               if (map.getLayer( "firstroute")){
+ 	              map.removeLayer( "firstroute");
+                   }
+
+              if (map.getSource("firstroutesource")){
+                	map.removeSource("firstroutesource");
+                 }
+
+              Demo4.className = Demo2.className.replace(" w3-show", "");
+              Demo4.previousElementSibling.className =
+              Demo4.previousElementSibling.className.replace("w3-blue", "w3-black");
+              Demo3.className = Demo3.className.replace(" w3-show", "");
+              Demo3.previousElementSibling.className =
+              Demo3.previousElementSibling.className.replace("w3-blue", "w3-black");
+              Demo2.className = Demo2.className.replace(" w3-show", "");
+              Demo2.previousElementSibling.className =
+              Demo2.previousElementSibling.className.replace("w3-blue", "w3-black");
+
          });
 
       });
