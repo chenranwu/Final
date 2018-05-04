@@ -27,7 +27,26 @@ welcomebutton.click(function(){
 }
 );
 
+function openNav() {
+    document.getElementById("mySidenav").style.width = "225px";
+}
 
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-black", "w3-blue");
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-blue", "w3-black");
+    }
+}
 //get number of docks
 
 
@@ -38,27 +57,44 @@ $('.window3').hide();
 
 //get number of docks
 
-document.getElementById('range-picker').addEventListener('click', function(e) {
-	map.setPaintProperty('hex-3d', 'property', count);
-	var sizeList = document.getElementById('range-picker').children;
-	for (var i = 0; i <= sizeList.length - 1; i++) {
-		console.log(sizeList[i].classList);
-		if (sizeList[i].classList.contains('active')) {
-			dock= 5*(i+2);
-			count = "pred" + dock;
-			cost = "cost" + dock;
-			balance = "costben"+ dock;
-			sizeList[i].classList.remove('active');
-		}
-	}
-	e.target.classList.add('active');
-});
 
 $(document).ready(function () {
 	var dock=15;
 	var count="pred15";
 	var cost = "cost15";
 	var balance = "costben15";
+	document.getElementById('range-picker').addEventListener('click', function(e) {
+		x = document.getElementById("Demo2");
+		x.className += " w3-show";
+		x.previousElementSibling.className =
+		x.previousElementSibling.className.replace("w3-black", "w3-blue");
+		map.setPaintProperty('hex-3d', "fill-extrusion-color",{
+			"property":count,"stops": [
+			[0, 'hsl(203,73%,67%)'],
+			[50, 'hsl(187,56%,69%)'],
+			[100, 'hsl(161,47%,76%)'],
+			[200, 'hsl(44,45%,99%)'],
+			[300, 'hsl(36,53%,99%)'],
+			[450, 'hsl(30,62%,99%)'],
+			[700, 'hsl(14,73%,96%)'],
+			[1000, 'hsl(353,71%,84%)'],
+			[2500, 'hsl(335,99%,62%)'],
+			[5000, 'hsl(356,99%,50%)'],
+			[10000, 'hsl(356,99%,27%)'],
+			[20000, 'hsl(356,100%,13%)']]});
+		var sizeList = document.getElementById('range-picker').children;
+		for (var i = 0; i <= sizeList.length - 1; i++) {
+			console.log(sizeList[i].classList);
+			if (sizeList[i].classList.contains('active')) {
+				dock= 5*(i+2);
+				count = "pred" + dock;
+				cost = "cost" + dock;
+				balance = "costben"+ dock;
+				sizeList[i].classList.remove('active');
+			}
+		}
+		e.target.classList.add('active');
+	});
     $('.bar-container input[type="checkbox"]').change(function () {
         if (!this.checked){
 					console.log("1");
@@ -106,6 +142,10 @@ $(document).ready(function () {
 					});
 				}
         else{
+						x = document.getElementById("Demo3");
+						x.className += " w3-show";
+						x.previousElementSibling.className =
+						x.previousElementSibling.className.replace("w3-black", "w3-blue");
 					map.removeLayer("hex-3d");
 			    map.addLayer({
 			        "id": "hex-2d",

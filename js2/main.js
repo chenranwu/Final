@@ -101,7 +101,7 @@ map.on('load', function() {
         "layout": {
         }
     });
-
+openNav();
 });
 
 var docks=[[10,pred10],[15,pred15],[20,pred20],[25,pred25],[30,pred30],[35,pred35]];
