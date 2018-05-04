@@ -309,6 +309,8 @@ cursor: pointer;
     padding-top: 60px;
     opacity: 0.8;
     padding-bottom: 60px;
+    border: #00bebe solid 1px;
+    border-radius: 25px 25px 25px 25px;
 }
 
 .sidenav a {
