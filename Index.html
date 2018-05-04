@@ -18,9 +18,20 @@
 
 <body>
 </div>
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+
+
+<div class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="bar-right"></div>
+  <div class="bar-left"></div>
   <div class="container">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">Smart Bike</a>
+    <div class="box">
+      <div class="inner">
+        <span>SMART BIKE</span>
+      </div>
+      <div class="inner">
+        <span>SMART BIKE</span>
+      </div>
+    </div>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       Menu
       <i class="fa fa-bars"></i>
@@ -28,32 +39,29 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+          <a class="nav-link js-scroll-trigger" href="#welcome_page">|FIND A STATION|</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#download">Project One</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#contact">Project Two</a>
+        <li class="nav-item" id="Project-Pred">
+          <a class="nav-link js-scroll-trigger" href="index2.html">|BUILD A STATION|</a>
         </li>
       </ul>
     </div>
   </div>
-</nav>
+</div>
 
-<header class="masthead" id="welcome_page">
+<div class="masthead" id="welcome_page" >
   <div class="intro-body">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
           <h1 class="brand-heading" >Smart Bike</h1>
-          <p class="intro-text">This application is developed by Chenran Wu and Shuhan Xu for CPLN-692 2018Fall at University of Pennsylvania.</p>
+          <p class="intro-text">Find a nearby bike share station and navigate for your trip.</p>
           <button id="welcome_button" type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-fw fa-map-marker faa-bounce animated"></i></button>
         </div>
       </div>
     </div>
   </div>
-</header>
+</div>
 
 <div id='map'></div>
 <!-- <div id='menu'>

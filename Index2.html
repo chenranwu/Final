@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>CPLN-692 Project</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+    <link href="vendor2/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor2/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css2/style.css" />
+    <link href="css2/grayscale.min.css" rel="stylesheet">
+    <link href="css2/others.css" rel="stylesheet">
+</head>
+
+<body>
+</div>
+
+<div class="bar-container" style="z-index:10">
+ <div class="window" header="test window" >
+  <div>Please choose number of docks:</div>
+    <div class='range-picker' id='range-picker'>
+      <div>10</div><div class='active'>15</div><div>20</div><div>25</div><div>30</div><div>35</div>
+    </div>
+  <div>Check 2D map for more info:</div>
+     3D <input type="checkbox" name="test"/> 2D
+  </div>
+  <div class="window2" header="test window">
+              <table>
+              <tr>
+              <td><div id= "tripcount" class='emp2'>Trip Count</td></div>
+              <td><div id="seperator">|</td></div>
+              <td><div id="cost" class='emp2'>Fixed Cost</td></div>
+              </tr>
+              <tr>
+            <td><div id= "tripcount-num" class='emp2'></div></td>
+            <td><div id="seperator"></td></div>
+            <td><div id="cost-num" class='emp2'></div></td>
+            </tr>
+            </table>
+
+            <div id= "cost-benefit" style="width:260px; font-size:15px; padding-top:15px;text-align:center">Cost Benefit Balance</div>
+            <span id= "cost-benefit-num" class="emp" style="font-size:180%">$</span>
+    </div>
+    <div class="window3" header="test window">
+      <table>
+              <tr>
+              <td><div id= "population">Population</div></td>
+              <td><div id="seperator">|</div></td>
+              <td><div id="median-age">Median Age</div></td>
+              <td><div id="seperator">|</div></td>
+              <td><div id="medincome">Median Income</div></td>
+              </tr>
+              <tr>
+            <td><div id= "population-num"></div></td>
+            <td><div id="seperator"></div></td>
+            <td><div id="median-age-num"></div></td>
+            <td><div id="seperator"></div></td>
+            <td><div id="medincome-num"></div></td>
+            </tr>
+            </table>
+
+            <table>
+            <tr>
+            <td><div id="dis-CBD">Distance to CBD</div></td>
+            <td><div id="seperator">|</div></td>
+            <td><div id="dis-septa">Distance to Septa</div></td>
+            <td><div id="seperator">|</div></td>
+            <td><div id="dis-septa">Distance to Crime</div></td>
+            </tr>
+            <tr>
+            <td><div id= "dis-CBD-num"></div></td>
+            <td><div id="seperator"></div></td>
+            <td><div id="dis-septa-num"></div></td>
+            <td><div id="seperator"></div></td>
+            <td><div id="dis-crime-num"></div></td>
+            </tr>
+            </table>
+      </div>
+ </div>
+</div>
+
+<div class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+
+  <div class="container">
+    <div class="bar-right"></div>
+    <div class="bar-left"></div>
+    <div class="box">
+      <div class="inner">
+        <span>SMART BIKE</span>
+      </div>
+      <div class="inner">
+        <span>SMART BIKE</span>
+      </div>
+    </div>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="index.html">|FIND A STATION|</a>
+        </li>
+        <li class="nav-item" id="Project-Pred">
+          <a class="nav-link js-scroll-trigger" href="#welcome_page">|BUILD A STATION|</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="masthead" id="welcome_page">
+  <div class="intro-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h1 class="brand-heading" >Smart Bike</h1>
+          <p class="intro-text">Bike share demand prediction for building a new station</p>
+          <button id="welcome_button" type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-fw fa-map-marker faa-bounce animated"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id='map'></div>
+<!-- <div id='menu'>
+    <div><input id='basic' type='radio' name='rtoggle' value='basic' >
+    <label for='basic'>basic</label><div>
+    <div><input id='streets' type='radio' name='rtoggle' value='streets'>
+    <label for='streets'>streets</label><div>
+    <div><input id='bright' type='radio' name='rtoggle' value='bright'>
+    <label for='bright'>bright</label><div>
+    <div><input id='light' type='radio' name='rtoggle' value='light'>
+    <label for='light'>light</label><div>
+    <div><input id='dark' type='radio' name='rtoggle' value='dark' checked='checked'>
+    <label for='dark'>dark</label><div>
+    <div><input id='satellite' type='radio' name='rtoggle' value='satellite'>
+    <label for='satellite'>satellite</label><div>
+    <div><input id='customized' type='radio' name='rtoggle' value='customized'>
+    <label for='customized'>customized</label><div>
+</div> -->
+
+<!-- Javascript Imports -->
+<script src="vendor2/jquery/jquery.min.js"></script>
+<script src="vendor2/jquery/leaflet-knn.js"></script>
+<script src="vendor2/jquery/leaflet-knn.min.js"></script>
+<script src="vendor2/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor2/jquery-easing/jquery.easing.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js" integrity="sha256-CNm+7c26DTTCGRQkM9vp7aP85kHFMqs9MhPEuytF+fQ=" crossorigin="anonymous"></script>
+<script src="js2/setup.js"></script>
+<script src="js2/functions.js"></script>
+<script src="js2/main.js"></script>
+
+
+
+</body>
+</html>

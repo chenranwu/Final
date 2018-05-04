@@ -1,4 +1,25 @@
 
+//switch navibar
+(function($) {
+
+	var tabs =  $(".navbar-nav ml-auto li a");
+
+	tabs.click(function() {
+		var masthead = this.hash.replace('/','');
+		tabs.removeClass("nav-link js-scroll-trigger");
+		$(this).addClass("nav-link js-scroll-trigger");
+    $("#masthead> aside").hide();
+    $(masthead).fadeIn(200);
+	});
+
+})(jQuery);
+
+
+$('.navbar-nav ml-auto li').click(function(){
+    $('.navbar-nav ml-auto li').removeClass('nav-item');
+    $(this).addClass('nav-item');
+});
+
 var welcomebutton = $("#welcome_button");
 
 welcomebutton.click(function(){
