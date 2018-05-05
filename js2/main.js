@@ -119,7 +119,7 @@ docks.forEach(function(dock) {
     swatches.appendChild(swatch);
 });
 
-  map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.NavigationControl());
 /*
     map.on('click', function(e) {
         var features = map.queryRenderedFeatures(e.point, {

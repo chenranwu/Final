@@ -12,7 +12,9 @@ html {
   width: 100%;
   height: 100%;
 }
-
+.mapboxgl-ctrl-top-right .mapboxgl-ctrl{
+  margin-top:60px
+}
 h1,
 h2,
 h3,
@@ -339,11 +341,12 @@ img::-moz-selection {
     }
     .window {
       position: fixed;
-      top: -35px;
+      top: -45px;
       margin-left: 10px;
       text-align: center;
       align-content: center;
       width:300px;
+      height: 195px;
       right: 0px;
       background: #212121;
       -webkit-transform: rotateY(-25deg) rotateX(0deg) translateY(100%);
@@ -370,8 +373,9 @@ img::-moz-selection {
       border-radius: 5px 5px 0 0;
     }
     .window2 {
-      position: fixed;
-      top: 190px;
+      position: absolute;
+      height: 175px;
+      top: 183px;
       width:300px;
       right: 0px;
       background: #212121;
@@ -401,7 +405,8 @@ img::-moz-selection {
     .window3 {
       position: fixed;
       width:300px;
-      top: 370px;
+      height: 190px;
+      top: 360px;
       right: 0px;
       background: #212121;
       -webkit-transform: rotateY(-25deg) rotateX(0deg) translateY(100%);
@@ -510,6 +515,8 @@ img::-moz-selection {
     }
   .emp2{
       font-size:15px;
+      top:-10px;
+      line-height: 13px
     }
   .emp{
       position:relative;
@@ -569,40 +576,43 @@ text-align:center;
 }
 
 #seperator{
-  width:5px;
+  width:3px;
   text-align:center;
 }
 
 #median-age{
   font-size:11px;
   width:80px;
+  line-height: 13px;
   text-align:center;
 }
 
 #medincome{
 font-size:11px;
 width:80px;
+line-height: 13px;
 text-align:center;
 }
 
 #population-num{
 width:80px;
 font-family:Arial;
-font-size:13px;
+font-size:11px;
+line-height: 13px;
 text-align:center;
 }
 
 #median-age-num{
   width:80px;
   font-family:Arial;
-  font-size:13px;
+  font-size:11px;
   text-align:center;
 }
 
 #medincome-num{
   width:80px;
   font-family:Arial;
-  font-size:13px;
+  font-size:11px;
   text-align:center;
 }
 
@@ -610,17 +620,23 @@ text-align:center;
 font-size:11px;
 width:80px;
 text-align:center;
+
+top:-10px;
 }
 
 #dis-septa{
 font-size:11px;
 width:80px;
+
+top:-10px;
 text-align:center;
 }
 
 #dis-crime{
 padding-left: 5px;
 font-size:11px;
+
+top:-10px;
 width:80px;
 text-align:center;
 }
@@ -628,22 +644,27 @@ text-align:center;
 #dis-CBD-num{
   padding-left: 25px;
   width:80px;
+  top:-20px;
   font-family:Arial;
-  font-size:13px;
+  font-size:11px;
   text-align:left;
 }
 
 #dis-septa-num{
   width:80px;
   font-family:Arial;
-  font-size:13px;
+  font-size:11px;
+
+  padding-top:-20px;
   text-align:center;
 }
 
 #dis-crime-num{
   width:80px;
+
+  top:-20px;
   font-family:Arial;
-  font-size:13px;
+  font-size:11px;
   text-align:center;
 }
 
@@ -677,8 +698,14 @@ text-align:center;
   font-size: 16px;
   margin: 10px;
 }
-
-
+#nav{
+  position:fixed;
+  top:50px;
+  z-index: 1;
+  left:10px;
+  height: 30px;
+  width: 30px;
+}
 .sidenav {
     width: 0;
     position: fixed;
@@ -691,6 +718,8 @@ text-align:center;
     padding-top: 60px;
     opacity: 0.8;
     padding-bottom: 60px;
+    border: #00bebe solid 1px;
+    border-radius: 25px 25px 25px 25px;
 }
 
 .sidenav a {

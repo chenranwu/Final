@@ -9,6 +9,7 @@ var map = new mapboxgl.Map({
     bearing: 9.5,
     hash: true,
 });
+map.addControl(new mapboxgl.NavigationControl());
 /*var layerList = document.getElementById('menu');
 var inputs = layerList.getElementsByTagName('input');
 

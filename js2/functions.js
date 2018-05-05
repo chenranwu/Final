@@ -24,6 +24,10 @@ var welcomebutton = $("#welcome_button");
 
 welcomebutton.click(function(){
   $('#welcome_page').hide();
+	x = document.getElementById("Demo1");
+	x.className += " w3-show";
+	x.previousElementSibling.className =
+	x.previousElementSibling.className.replace("w3-black", "w3-blue");
 }
 );
 
@@ -82,10 +86,40 @@ $(document).ready(function () {
 			[5000, 'hsl(356,99%,50%)'],
 			[10000, 'hsl(356,99%,27%)'],
 			[20000, 'hsl(356,100%,13%)']]});
+		map.setPaintProperty('hex-3d', 'fill-extrusion-height',{
+			"property": count,
+			"stops": [
+				[0, 200],
+				[50, 250],
+				[100, 300],
+				[200, 400],
+				[300, 500],
+				[450, 600],
+				[700, 700],
+				[1000, 800],
+				[2500, 1000],
+				[5000, 2000],
+				[10000, 3000],
+				[20000, 5000]]});
+		map.setPaintProperty('hex-2d', "fill-extrusion-color",{
+				"property":count,"stops": [
+				[0, 'hsl(203,73%,67%)'],
+				[50, 'hsl(187,56%,69%)'],
+				[100, 'hsl(161,47%,76%)'],
+				[200, 'hsl(44,45%,99%)'],
+				[300, 'hsl(36,53%,99%)'],
+				[450, 'hsl(30,62%,99%)'],
+				[700, 'hsl(14,73%,96%)'],
+				[1000, 'hsl(353,71%,84%)'],
+				[2500, 'hsl(335,99%,62%)'],
+				[5000, 'hsl(356,99%,50%)'],
+				[10000, 'hsl(356,99%,27%)'],
+				[20000, 'hsl(356,100%,13%)']]});
 		var sizeList = document.getElementById('range-picker').children;
 		for (var i = 0; i <= sizeList.length - 1; i++) {
 			console.log(sizeList[i].classList);
 			if (sizeList[i].classList.contains('active')) {
+				console.log(i);
 				dock= 5*(i+2);
 				count = "pred" + dock;
 				cost = "cost" + dock;
@@ -187,6 +221,10 @@ $(document).ready(function () {
 					        }
 					    });
 					map.on("click", "hex-2d", function(e) {
+						x = document.getElementById("Demo4");
+						x.className += " w3-show";
+						x.previousElementSibling.className =
+						x.previousElementSibling.className.replace("w3-black", "w3-blue");
 					    map.setFilter("hex-2d-hover", ["==", "idhex", e.features[0].properties.idhex]);
 							console.log(5);
           $('#tripcount-num').text(e.features[0].properties[count]);

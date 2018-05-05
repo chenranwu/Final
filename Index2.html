@@ -14,14 +14,14 @@
     <link rel="stylesheet" href="css2/style.css" />
     <link href="css2/grayscale.min.css" rel="stylesheet">
     <link href="css2/others.css" rel="stylesheet">
-    <link href="css/w3.css" rel="stylesheet">
+    <link href="css2/w3.css" rel="stylesheet">
 </head>
 
 <body>
 </div>
 
 <div class="bar-container" style="z-index:10">
- <div class="window" header="test window" >
+ <div class="window" header="picker" >
   <div>Please choose number of docks:</div>
     <div class='range-picker' id='range-picker'>
       <div>10</div><div class='active'>15</div><div>20</div><div>25</div><div>30</div><div>35</div>
@@ -29,7 +29,7 @@
   <div>Check 2D map for more info:</div>
      3D <input type="checkbox" name="test"/> 2D
   </div>
-  <div class="window2" header="test window">
+  <div class="window2" header="cost-benefit">
               <table>
               <tr>
               <td><div id= "tripcount" class='emp2'>Trip Count</td></div>
@@ -43,10 +43,10 @@
             </tr>
             </table>
 
-            <div id= "cost-benefit" style="width:260px; font-size:15px; padding-top:15px;text-align:center">Cost Benefit Balance</div>
+            <div id= "cost-benefit" style="width:260px; font-size:15px; padding-top:15px;text-align:center; line-height:20px">Cost Benefit Balance</div>
             <span id= "cost-benefit-num" class="emp" style="font-size:180%">$</span>
     </div>
-    <div class="window3" header="test window">
+    <div class="window3" header="information">
       <table>
               <tr>
               <td><div id= "population">Population</div></td>
@@ -131,9 +131,9 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <div class="w3-container">
-<button  onclick="myFunction('Demo1')" class="w3-button w3-block w3-black w3-left-align" style="font-size:12px;font-weight:bold;">1. Find Your Location</button>
+<button  onclick="myFunction('Demo1')" class="w3-button w3-block w3-black w3-left-align" style="font-size:12px;font-weight:bold;">1. Look at This Map</button>
 <div id="Demo1" class="w3-hide w3-container">
-    <p style="font-size:12px; margin-bottom:10px;">You will automatically navigate to your current location.</p>
+    <p style="font-size:12px; margin-bottom:10px;">The map shows bike share demand(trips) predicted for every location in Philadelphia.</p>
 </div>
 
 <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-black w3-left-align" style="font-size:12px;font-weight:bold;">2. Choose a Station</button>
@@ -149,13 +149,13 @@
 <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-black w3-left-align" style="font-size:12px;font-weight:bold;">4. Find Your Way!</button>
 <div id="Demo4" class="w3-hide w3-container">
     <p style="font-size:12px; margin-bottom:10px;">Click on GO to start your trip</p>
-    <button class="w3-button w3-blue" id="Go" style=" font-size:12px;display:inline-block">Go</button>
-    <button class="w3-button w3-blue" id="Starover" style=" margin-left:20px; font-size:12px; display:inline-block">Start Over</button>
-</div>
+  </div>
 
 </div>
 </div>
-
+<div id="nav">
+<span style="font-size:30px;cursor:pointer;opacity:0.8;" onclick="openNav()">&#9776;</span>
+</div>
 <div id='map'></div>
 <!-- <div id='menu'>
     <div><input id='basic' type='radio' name='rtoggle' value='basic' >

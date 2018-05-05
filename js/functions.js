@@ -157,7 +157,7 @@ document.getElementById('welcome_button').addEventListener('click', function () 
                     requestAnimationFrame(animateMarker);
 
                     radius += (maxRadius - radius) / framesPerSecond;
-                    opacity -= ( .9 / framesPerSecond );
+                    opacity -= ( 0.9 / framesPerSecond );
 
                     if (opacity <= 0) {
                         radius = initialRadius;
